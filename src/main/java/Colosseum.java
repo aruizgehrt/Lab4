@@ -21,6 +21,12 @@ public class Colosseum {
     static final int MAX_NUM_ROUNDS = 10;
 
     /**
+     * The maximum number of attack or defense points we will allow a Pokemon to start with.
+     */
+    static final int MAX_ATTACK_LEVEL = 49;
+
+
+    /**
      * The first Pokemon we will be fighting.
      */
     static Pokemon firstPokemon;
@@ -73,6 +79,28 @@ public class Colosseum {
      */
     public static Pokemon buildPokemon() {
         Pokemon tempPokemon = new Pokemon();
+        System.out.println("Please name your Pokemon:");
+        tempPokemon.name = myScan.next();
+        System.out.println("How many hit points will it have? (1-50):");
+        tempPokemon.hitPoints = myScan.nextInt();
+        while (tempPokemon.hitPoints < 1 || tempPokemon.hitPoints > MAX_HIT_POINTS) {
+            System.out.println("Sorry. Hit points must be between 1 and 50:");
+            tempPokemon.hitPoints = myScan.nextInt();
+        }
+        System.out.println("Split fifty points between attack level and defense level");
+        System.out.println("Enter your attack level (1-49):");
+        tempPokemon.attackLevel = myScan.nextInt();
+        while (tempPokemon.attackLevel < 1 || tempPokemon.attackLevel > MAX_ATTACK_LEVEL) {
+            System.out.println("Sorry. The attack level must be between 1 and 49:");
+            tempPokemon.attackLevel = myScan.nextInt();
+        }
+        System.out.println("Enter your defense level (1-" + (MAX_HIT_POINTS - tempPokemon.attackLevel) + "):");
+        tempPokemon.defenseLevel = myScan.nextInt();
+        while (tempPokemon.defenseLevel < 1 || tempPokemon.defenseLevel > MAX_HIT_POINTS - tempPokemon.attackLevel) {
+            System.out.println("Sorry. The defense level must be between 1 and " +
+                    (MAX_HIT_POINTS - tempPokemon.attackLevel) + ":");
+            tempPokemon.defenseLevel = myScan.nextInt();
+        }
         return tempPokemon;
     }
 
